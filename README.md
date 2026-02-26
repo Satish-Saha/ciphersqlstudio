@@ -58,7 +58,8 @@ CipherSQLStudio/
 ### 2. Clone / Open the Project
 
 ```bash
-cd "G:\Interview tasks\CipherSQLStudio - CipherSchools"
+git clone https://github.com/Satish-Saha/ciphersqlstudio.git
+cd ciphersqlstudio
 ```
 
 ### 3. Backend Setup
