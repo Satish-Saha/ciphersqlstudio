@@ -1,9 +1,6 @@
 @use 'variables' as *;
 
-// =============================================
 // Responsive Mixins
-// =============================================
-
 @mixin respond-to($breakpoint) {
     @if $breakpoint =='tablet' {
         @media (min-width: #{$bp-tablet}) {

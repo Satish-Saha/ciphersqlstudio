@@ -30,18 +30,6 @@
         @include flex(row, flex-start, center, $spacing-2);
         text-decoration: none;
 
-        &-icon {
-            width: 36px;
-            height: 36px;
-            background: linear-gradient(135deg, $color-primary, $color-primary-dark);
-            border-radius: $radius-md;
-            @include flex-center;
-            color: $color-white;
-            font-size: 1.1rem;
-            font-weight: $font-weight-bold;
-            box-shadow: $shadow-primary;
-        }
-
         &-text {
             font-size: $font-size-lg;
             font-weight: $font-weight-bold;

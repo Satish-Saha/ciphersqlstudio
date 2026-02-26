@@ -17,8 +17,8 @@ const Navbar = () => {
     };
 
     const navLinks = [
-        { path: '/', label: 'Home', icon: '🏠' },
-        { path: '/assignments', label: 'Assignments', icon: '📝' },
+        { path: '/', label: 'Home' },
+        { path: '/assignments', label: 'Assignments' },
     ];
 
     return (
@@ -27,7 +27,6 @@ const Navbar = () => {
                 <div className="navbar__inner">
                     {/* Logo */}
                     <Link to="/" className="navbar__logo" aria-label="CipherSQLStudio Home">
-                        <div className="navbar__logo-icon">⚡</div>
                         <span className="navbar__logo-text">
                             Cipher<span>SQL</span>Studio
                         </span>
@@ -42,7 +41,6 @@ const Navbar = () => {
                                 className={`navbar__link ${isActive(link.path) ? 'navbar__link--active' : ''}`}
                                 aria-current={isActive(link.path) ? 'page' : undefined}
                             >
-                                <span aria-hidden="true">{link.icon}</span>
                                 {link.label}
                             </Link>
                         ))}
@@ -89,7 +87,6 @@ const Navbar = () => {
                             onClick={() => setMobileOpen(false)}
                             role="menuitem"
                         >
-                            <span aria-hidden="true">{link.icon}</span>
                             {link.label}
                         </Link>
                     ))}

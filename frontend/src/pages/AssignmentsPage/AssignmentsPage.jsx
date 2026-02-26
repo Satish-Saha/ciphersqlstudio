@@ -10,8 +10,6 @@ const FILTERS = [
     { key: 'hard', label: 'HARD' },
 ];
 
-const DIFFICULTY_ICONS = { Easy: '🟢', Medium: '🟡', Hard: '🔴' };
-
 const AssignmentCard = ({ assignment, index, onAttempt }) => (
     <div
         className={`assignment-card assignment-card--${assignment.difficulty.toLowerCase()}`}
@@ -22,17 +20,13 @@ const AssignmentCard = ({ assignment, index, onAttempt }) => (
         onKeyDown={(e) => e.key === 'Enter' && onAttempt(assignment._id)}
     >
         <div className="assignment-card__header">
-            <div className="assignment-card__number">
-                {DIFFICULTY_ICONS[assignment.difficulty] || index + 1}
-            </div>
-            <div className="assignment-card__meta">
+            <div className="assignment-card__title-row">
+                <h3 className="assignment-card__title">{assignment.title}</h3>
                 <span className={`badge badge--${assignment.difficulty.toLowerCase()}`}>
                     {assignment.difficulty}
                 </span>
             </div>
         </div>
-
-        <h3 className="assignment-card__title">{assignment.title}</h3>
         <p className="assignment-card__description">{assignment.description}</p>
 
         {assignment.tags?.length > 0 && (
@@ -48,7 +42,7 @@ const AssignmentCard = ({ assignment, index, onAttempt }) => (
                 <span>📋 {assignment.sampleTables?.length || 0} table{(assignment.sampleTables?.length || 0) !== 1 ? 's' : ''}</span>
             </span>
             <button className="assignment-card__attempt-btn" onClick={(e) => { e.stopPropagation(); onAttempt(assignment._id); }}>
-                Attempt →
+                Attempt
             </button>
         </div>
     </div>
@@ -108,7 +102,7 @@ const AssignmentsPage = () => {
                     </div>
 
                     <div className="assignments-page__controls">
-                        {/* Filter pills - matching reference image design */}
+                        {/* Filter pills */}
                         <div className="assignments-page__filters" role="tablist" aria-label="Filter by difficulty">
                             {FILTERS.map((f) => (
                                 <button

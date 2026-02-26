@@ -11,23 +11,17 @@
         @include card;
         width: 100%;
         max-width: 440px;
-        padding: $spacing-8;
+        padding: $spacing-6;
     }
 
     &__logo {
         text-align: center;
-        margin-bottom: $spacing-8;
+        margin-bottom: $spacing-4;
 
         &-icon {
-            width: 56px;
-            height: 56px;
-            background: linear-gradient(135deg, $color-primary, $color-primary-dark);
-            border-radius: $radius-lg;
             @include flex-center;
-            color: $color-white;
-            font-size: 1.5rem;
-            margin: 0 auto $spacing-4;
-            box-shadow: $shadow-primary;
+            font-size: 1.4rem;
+            margin: 0 auto $spacing-2;
         }
 
         h1 {
@@ -50,7 +44,7 @@
     &__form {
         display: flex;
         flex-direction: column;
-        gap: $spacing-5;
+        gap: $spacing-3;
     }
 
     &__field {

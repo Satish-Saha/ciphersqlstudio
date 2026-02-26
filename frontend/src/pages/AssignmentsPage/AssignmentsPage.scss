@@ -60,7 +60,7 @@
         }
     }
 
-    // Filter pills - mimicking the reference image tab row
+    // Filter pills
     &__filters {
         @include flex(row, flex-start, center, $spacing-2);
         background: $color-white;
@@ -181,12 +181,13 @@
         @include respond-to('wide') {
             grid-template-columns: repeat(4, 1fr);
         }
+
+        // Equal heights across all rows
+        align-items: stretch;
     }
 }
 
-// =============================================
 // Assignment Card
-// =============================================
 
 .assignment-card {
     @include card;
@@ -196,74 +197,38 @@
     gap: $spacing-4;
     cursor: pointer;
     transition: all $transition-base;
-    position: relative;
-    overflow: hidden;
-
-    &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, $color-primary, $color-primary-dark);
-        opacity: 0;
-        transition: opacity $transition-base;
-    }
+    min-height: 260px;
 
     &:hover {
         transform: translateY(-4px);
         box-shadow: $shadow-lg;
-        border-color: $color-primary;
-
-        &::before {
-            opacity: 1;
-        }
     }
 
-    &--easy::before {
-        background: linear-gradient(90deg, $color-easy, color.adjust($color-easy, $lightness: -10%));
-    }
-
-    &--medium::before {
-        background: linear-gradient(90deg, $color-medium, color.adjust($color-medium, $lightness: -10%));
-    }
-
-    &--hard::before {
-        background: linear-gradient(90deg, $color-hard, color.adjust($color-hard, $lightness: -10%));
-    }
+    // Difficulty-specific hover border color
+    &--easy:hover   { border-color: $color-easy; }
+    &--medium:hover { border-color: $color-medium; }
+    &--hard:hover   { border-color: $color-hard; }
 
     &__header {
         @include flex(row, space-between, flex-start, $spacing-3);
     }
 
-    &__number {
-        width: 40px;
-        height: 40px;
-        border-radius: $radius-md;
-        background: $color-primary-light;
-        @include flex-center;
-        font-size: $font-size-lg;
-        font-weight: $font-weight-bold;
-        color: $color-primary-dark;
-        flex-shrink: 0;
-    }
-
-    &__meta {
-        @include flex(column, flex-start, flex-end, $spacing-1);
+    &__title-row {
+        @include flex(row, space-between, flex-start, $spacing-2);
+        width: 100%;
     }
 
     &__title {
-        font-size: $font-size-base;
+        font-size: $font-size-sm;   
         font-weight: $font-weight-semibold;
         color: $color-text-dark;
         line-height: 1.4;
     }
 
     &__description {
-        font-size: $font-size-sm;
+        font-size: 0.7rem;             
         color: $color-text-muted;
-        line-height: 1.6;
+        line-height: 1.5;
         flex: 1;
     }
 
@@ -276,9 +241,9 @@
     &__tag {
         background: $color-border-light;
         color: $color-text-muted;
-        font-size: 11px;
+        font-size: 10px;              
         font-weight: $font-weight-medium;
-        padding: 2px 8px;
+        padding: 2px 7px;
         border-radius: $radius-full;
     }
 
@@ -290,7 +255,7 @@
     }
 
     &__tables-info {
-        font-size: $font-size-xs;
+        font-size: 10px;               
         color: $color-text-light;
 
         span {
@@ -304,8 +269,8 @@
         @include btn-base;
         background: $color-primary;
         color: $color-white;
-        padding: $spacing-2 $spacing-5;
-        font-size: $font-size-xs;
+        padding: $spacing-1 $spacing-4;  
+        font-size: 11px;              
         border-radius: $radius-full;
         box-shadow: $shadow-primary;
         @include touch-target;

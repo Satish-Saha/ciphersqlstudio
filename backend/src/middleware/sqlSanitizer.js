@@ -1,9 +1,3 @@
-/**
- * SQL Sanitizer Middleware
- * Blocks dangerous SQL operations from students.
- * Only SELECT queries are allowed in the sandbox.
- */
-
 // Dangerous SQL keywords that students should not be able to execute
 const BLOCKED_PATTERNS = [
     /^\s*DROP\s+/i,
@@ -24,8 +18,6 @@ const BLOCKED_PATTERNS = [
     /;\s*ALTER\s+/i,
     /;\s*TRUNCATE\s+/i,
     /;\s*CREATE\s+/i,
-    /--/, // SQL comments that could be used for injection
-    /\/\*/,  // Block comment start
 ];
 
 const sqlSanitizer = (req, res, next) => {
@@ -54,8 +46,13 @@ const sqlSanitizer = (req, res, next) => {
         }
     }
 
-    // Must start with SELECT (after trimming)
-    if (!/^\s*SELECT\s+/i.test(trimmed) && !/^\s*WITH\s+/i.test(trimmed)) {
+    // Strip -- line comments and /* block comments, then check for SELECT
+    const strippedSql = trimmed
+        .replace(/--[^\n]*/g, '')      // remove -- line comments
+        .replace(/\/\*[\s\S]*?\*\//g, '') // remove /* block comments */
+        .trim();
+
+    if (!/^\s*SELECT\s+/i.test(strippedSql) && !/^\s*WITH\s+/i.test(strippedSql)) {
         return res.status(403).json({
             success: false,
             message: '🚫 Only SELECT queries are allowed. Please write a SELECT statement.',

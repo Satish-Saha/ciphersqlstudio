@@ -2,11 +2,10 @@ const { GoogleGenerativeAI } = require('@google/generative-ai');
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-/**
- * Generates a helpful hint (NOT the solution) for the user's SQL problem.
- */
+// Generates a helpful hint (NOT the solution) for the user's SQL problem.
+
 const generateHint = async ({ question, userSql, sampleTables }) => {
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
 
     const tableInfo = sampleTables.map((t) => {
         const cols = t.columns.map((c) => `${c.columnName} (${c.dataType})`).join(', ');
