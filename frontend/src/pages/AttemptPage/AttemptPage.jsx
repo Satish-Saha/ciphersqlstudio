@@ -5,9 +5,6 @@ import { getAssignment, executeQuery, getHint, saveProgress, getProgress } from 
 import { useAuth } from '../../context/AuthContext';
 import './AttemptPage.scss';
 
-// =============================================
-// SampleDataViewer Sub-component
-// =============================================
 const SampleDataViewer = ({ sampleTables }) => {
     const [open, setOpen] = useState(true);
 
@@ -67,9 +64,7 @@ const SampleDataViewer = ({ sampleTables }) => {
     );
 };
 
-// =============================================
 // ResultsPanel Sub-component
-// =============================================
 const ResultsPanel = ({ result, error, loading }) => (
     <section className="results-panel" aria-label="Query results">
         <div className="results-panel__header">
@@ -132,9 +127,7 @@ const ResultsPanel = ({ result, error, loading }) => (
     </section>
 );
 
-// =============================================
 // HintPanel Sub-component
-// =============================================
 const HintPanel = ({ assignment, sql }) => {
     const [hint, setHint] = useState('');
     const [loading, setLoading] = useState(false);
@@ -164,10 +157,6 @@ const HintPanel = ({ assignment, sql }) => {
                 <div className="hint-title">
                     <span aria-hidden="true">💡</span> AI Hint
                 </div>
-                <span style={{ fontSize: '11px', color: 'var(--text-light, #94A3B8)' }}>Powered by Gemini</span>
-            </div>
-
-            <div className="hint-panel__body">
                 <button
                     className="hint-panel__btn"
                     onClick={fetchHint}
@@ -177,10 +166,12 @@ const HintPanel = ({ assignment, sql }) => {
                     {loading ? (
                         <><span className="execute-btn__spinner" aria-hidden="true"></span> Thinking...</>
                     ) : (
-                        <><span aria-hidden="true">💡</span> Get Hint</>
+                        <>💡 Get Hint</>
                     )}
                 </button>
+            </div>
 
+            <div className="hint-panel__body">
                 {error && (
                     <div className="alert alert--error" style={{ marginTop: '16px' }} role="alert">
                         ⚠️ {error}
@@ -204,9 +195,7 @@ const HintPanel = ({ assignment, sql }) => {
     );
 };
 
-// =============================================
 // Main AttemptPage Component
-// =============================================
 const AttemptPage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -307,7 +296,7 @@ const AttemptPage = () => {
             {/* Back Bar */}
             <div className="attempt-page__back-bar">
                 <button className="back-btn" onClick={() => navigate('/assignments')} aria-label="Go back to assignments">
-                    ← Back
+                    Back
                 </button>
                 <h2>{assignment.title}</h2>
                 <span className={`badge badge--${assignment.difficulty.toLowerCase()}`}>

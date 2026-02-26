@@ -17,9 +17,9 @@
 
     &__header {
         @include flex(column, flex-start, flex-start, $spacing-4);
-        margin-bottom: $spacing-8;
+        margin-bottom: $spacing-6;
 
-        @include respond-to('tablet') {
+        @include respond-to('desktop') {
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
@@ -52,7 +52,7 @@
         @include flex(column, flex-start, flex-start, $spacing-3);
         width: 100%;
 
-        @include respond-to('tablet') {
+        @include respond-to('desktop') {
             flex-direction: row;
             align-items: center;
             width: auto;
@@ -62,22 +62,34 @@
 
     // Filter pills
     &__filters {
-        @include flex(row, flex-start, center, $spacing-2);
+        @include flex(row, flex-start, center, $spacing-1);
         background: $color-white;
         border: 1px solid $color-border;
         border-radius: $radius-full;
         padding: 4px;
+        overflow-x: auto;    // scrollable on small screens
+        flex-shrink: 0;
+        max-width: 100%;
+        scrollbar-width: none;
+        &::-webkit-scrollbar { display: none; }
     }
 
     &__filter-btn {
         @include btn-base;
         border-radius: $radius-full;
-        padding: $spacing-2 $spacing-5;
-        font-size: $font-size-sm;
+        padding: $spacing-1 $spacing-3;
+        font-size: $font-size-xs;
         background: none;
         color: $color-text-muted;
         border: none;
-        @include touch-target;
+        white-space: nowrap;
+        min-height: unset;
+        min-width: unset;
+
+        @include respond-to('tablet') {
+            padding: $spacing-2 $spacing-4;
+            font-size: $font-size-sm;
+        }
 
         &:hover {
             background: $color-border-light;

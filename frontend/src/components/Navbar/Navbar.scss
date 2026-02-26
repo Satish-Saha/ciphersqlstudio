@@ -113,12 +113,6 @@
     }
 
     &__mobile-toggle {
-        display: flex;
-
-        @include respond-to('tablet') {
-            display: none;
-        }
-
         @include btn-base;
         background: none;
         border: none;
@@ -127,6 +121,11 @@
         padding: $spacing-2;
         width: 40px;
         height: 40px;
+        display: flex;
+
+        @include respond-to('tablet') {
+            display: none !important;
+        }
     }
 }
 

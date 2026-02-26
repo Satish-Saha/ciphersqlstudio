@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { login, register } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
+import { useToast } from '../../context/ToastContext';
 import './AuthPage.scss';
 
 const AuthPage = ({ mode = 'login' }) => {
     const navigate = useNavigate();
     const { loginUser } = useAuth();
+    const { showToast } = useToast();
 
     const [form, setForm] = useState({ username: '', email: '', password: '' });
     const [loading, setLoading] = useState(false);
@@ -29,6 +31,12 @@ const AuthPage = ({ mode = 'login' }) => {
                 : await register({ username: form.username, email: form.email, password: form.password });
 
             loginUser(res.data.token, res.data.user);
+            showToast(
+                isLogin
+                    ? `Welcome back, ${res.data.user?.username || 'there'}!`
+                    : `Account created! Welcome, ${res.data.user?.username}!`,
+                'success'
+            );
             navigate('/assignments');
         } catch (err) {
             setError(err.response?.data?.message || 'Something went wrong. Please try again.');

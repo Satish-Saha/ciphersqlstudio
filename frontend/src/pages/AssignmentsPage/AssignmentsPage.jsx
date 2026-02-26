@@ -98,7 +98,7 @@ const AssignmentsPage = () => {
                 <header className="assignments-page__header">
                     <div className="assignments-page__title-group">
                         <h1>SQL <span>Assignments</span></h1>
-                        <p>Practice SQL queries against pre-configured datasets with real-time hints</p>
+                        <p>Practice SQL queries with real-time hints</p>
                     </div>
 
                     <div className="assignments-page__controls">

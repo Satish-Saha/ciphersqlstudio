@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { useToast } from '../../context/ToastContext';
 import './Navbar.scss';
 
 const Navbar = () => {
     const { user, logout, isLoggedIn } = useAuth();
+    const { showToast } = useToast();
     const location = useLocation();
     const navigate = useNavigate();
     const [mobileOpen, setMobileOpen] = useState(false);
@@ -13,6 +15,7 @@ const Navbar = () => {
 
     const handleLogout = () => {
         logout();
+        showToast('You have been logged out', 'info');
         navigate('/');
     };
 
@@ -90,15 +93,10 @@ const Navbar = () => {
                             {link.label}
                         </Link>
                     ))}
-                    {isLoggedIn ? (
+                    {isLoggedIn && (
                         <button className="btn btn--ghost" onClick={handleLogout} style={{ alignSelf: 'flex-start' }}>
                             Logout
                         </button>
-                    ) : (
-                        <div style={{ display: 'flex', gap: '12px', marginTop: '8px' }}>
-                            <Link to="/login" className="btn btn--secondary btn--sm" onClick={() => setMobileOpen(false)}>Login</Link>
-                            <Link to="/register" className="btn btn--primary btn--sm" onClick={() => setMobileOpen(false)}>Sign Up</Link>
-                        </div>
                     )}
                 </div>
             )}

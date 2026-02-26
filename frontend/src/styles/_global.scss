@@ -278,3 +278,61 @@ h6 {
         color: color.adjust($color-medium, $lightness: -20%);
     }
 }
+
+.toast-container {
+    position: fixed;
+    bottom: $spacing-6;
+    right: $spacing-4;
+    z-index: 9999;
+    @include flex(column, flex-end, flex-end, $spacing-3);
+    pointer-events: none;
+
+    @include respond-to('tablet') {
+        right: $spacing-6;
+    }
+}
+
+.toast {
+    @include flex(row, flex-start, center, $spacing-3);
+    padding: $spacing-3 $spacing-4;
+    border-radius: $radius-md;
+    box-shadow: $shadow-lg;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    max-width: 320px;
+    pointer-events: all;
+    animation: toast-in 0.3s ease;
+
+    &__message { flex: 1; }
+
+    &__close {
+        background: none;
+        border: none;
+        cursor: pointer;
+        opacity: 0.6;
+        font-size: 0.75rem;
+        padding: 2px 4px;
+        &:hover { opacity: 1; }
+    }
+
+    &--success {
+        background: $color-easy-bg;
+        border: 1px solid $color-primary;
+        color: $color-primary-dark;
+    }
+    &--error {
+        background: $color-error-bg;
+        border: 1px solid color.adjust($color-error, $lightness: 20%);
+        color: color.adjust($color-error, $lightness: -10%);
+    }
+    &--info {
+        background: #EFF6FF;
+        border: 1px solid #93C5FD;
+        color: #1D4ED8;
+    }
+}
+
+@keyframes toast-in {
+    from { opacity: 0; transform: translateX(40px); }
+    to   { opacity: 1; transform: translateX(0); }
+}

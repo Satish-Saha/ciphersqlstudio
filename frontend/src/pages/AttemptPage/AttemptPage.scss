@@ -100,10 +100,7 @@
     }
 }
 
-// =============================================
 // Question Panel
-// =============================================
-
 .question-panel {
     &__header {
         padding: $spacing-5 $spacing-6;
@@ -129,10 +126,7 @@
     }
 }
 
-// =============================================
 // Sample Data Viewer
-// =============================================
-
 .sample-data {
     border-top: 1px solid $color-border-light;
 
@@ -224,10 +218,7 @@
     }
 }
 
-// =============================================
 // Editor Panel
-// =============================================
-
 .editor-panel {
     @include card;
     overflow: hidden;
@@ -280,7 +271,6 @@
         @include touch-target;
 
         &:hover:not(:disabled) {
-            background: $color-primary-dark;
             transform: translateY(-1px);
             box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
         }
@@ -301,10 +291,7 @@
     }
 }
 
-// =============================================
 // Results Panel
-// =============================================
-
 .results-panel {
     @include card;
     overflow: hidden;
@@ -423,10 +410,7 @@
     }
 }
 
-// =============================================
 // Hint Panel
-// =============================================
-
 .hint-panel {
     @include card;
     overflow: hidden;
@@ -450,17 +434,16 @@
 
     &__btn {
         @include btn-base;
-        @include touch-target;
-        background: $color-warning;
-        color: $color-white;
-        width: 100%;
-        justify-content: center;
-        border-radius: $radius-md;
-        font-size: $font-size-sm;
-        box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
+        background: transparent;
+        color: $color-warning;
+        border: 1.5px solid $color-warning;
+        padding: $spacing-2 $spacing-4;
+        font-size: $font-size-xs;
+        border-radius: $radius-full;
+        min-height: unset;
+        min-width: unset;
 
         &:hover:not(:disabled) {
-            background: color.adjust($color-warning, $lightness: -8%);
             transform: translateY(-1px);
         }
 

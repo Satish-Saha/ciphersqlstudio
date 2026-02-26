@@ -1,8 +1,6 @@
 const { pool } = require('../config/postgres');
 
-/**
- * Maps MongoDB data types to PostgreSQL data types
- */
+// Maps MongoDB data types to PostgreSQL data types
 const mapDataType = (type) => {
     const typeMap = {
         'INTEGER': 'INTEGER',
@@ -23,17 +21,13 @@ const mapDataType = (type) => {
     return typeMap[type.toUpperCase()] || 'TEXT';
 };
 
-/**
- * Gets schema name for an assignment. Uses assignment ID suffix for uniqueness.
- */
+// Gets schema name for an assignment. Uses assignment ID suffix for uniqueness.
 const getSchemaName = (assignmentId) => {
     return `workspace_${assignmentId.toString().slice(-8)}`;
 };
 
-/**
- * Sets up a PostgreSQL schema for a given assignment with its sample data.
- * Idempotent - drops and recreates schema each time for clean state.
- */
+// Sets up a PostgreSQL schema for a given assignment with its sample data.
+// Idempotent - drops and recreates schema each time for clean state.
 const setupWorkspace = async (assignmentId, sampleTables) => {
     const schemaName = getSchemaName(assignmentId);
     const client = await pool.connect();
@@ -83,9 +77,7 @@ const setupWorkspace = async (assignmentId, sampleTables) => {
     }
 };
 
-/**
- * Executes a user SQL query within the assignment's sandboxed schema.
- */
+// Executes a user SQL query within the assignment's sandboxed schema.
 const executeQuery = async (assignmentId, sql) => {
     const schemaName = getSchemaName(assignmentId);
     const client = await pool.connect();
@@ -106,9 +98,7 @@ const executeQuery = async (assignmentId, sql) => {
     }
 };
 
-/**
- * Destroys the workspace schema (cleanup)
- */
+// Destroys the workspace schema (cleanup)
 const destroyWorkspace = async (assignmentId) => {
     const schemaName = getSchemaName(assignmentId);
     await pool.query(`DROP SCHEMA IF EXISTS "${schemaName}" CASCADE`);
