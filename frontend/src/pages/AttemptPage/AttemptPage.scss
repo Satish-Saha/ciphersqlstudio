@@ -1,0 +1,499 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+@use 'sass:color';
+
+.attempt-page {
+    min-height: calc(100vh - #{$navbar-height});
+    background: $color-bg;
+    display: flex;
+    flex-direction: column;
+
+    // Back bar
+    &__back-bar {
+        background: $color-white;
+        border-bottom: 1px solid $color-border;
+        padding: $spacing-3 $spacing-4;
+
+        @include respond-to('tablet') {
+            padding: $spacing-3 $spacing-6;
+        }
+
+        @include respond-to('desktop') {
+            padding: $spacing-3 $spacing-8;
+        }
+
+        display: flex;
+        align-items: center;
+        gap: $spacing-4;
+
+        .back-btn {
+            @include btn-base;
+            background: none;
+            border: 1.5px solid $color-border;
+            color: $color-text-muted;
+            padding: $spacing-2 $spacing-4;
+            font-size: $font-size-sm;
+            border-radius: $radius-full;
+
+            &:hover {
+                border-color: $color-primary;
+                color: $color-primary;
+            }
+        }
+
+        h2 {
+            font-size: $font-size-base;
+            font-weight: $font-weight-semibold;
+            color: $color-text-dark;
+            flex: 1;
+            @include truncate;
+        }
+    }
+
+    // Main layout
+    &__layout {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        max-width: $container-max-width;
+        width: 100%;
+        margin: 0 auto;
+        padding: $spacing-4;
+        gap: $spacing-4;
+
+        @include respond-to('tablet') {
+            padding: $spacing-6;
+        }
+
+        @include respond-to('desktop') {
+            flex-direction: row;
+            padding: $spacing-6 $spacing-8;
+            align-items: flex-start;
+        }
+    }
+
+    // Left panel
+    &__left {
+        @include card;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+
+        @include respond-to('desktop') {
+            width: 380px;
+            flex-shrink: 0;
+            position: sticky;
+            top: #{$navbar-height + 16px};
+            max-height: calc(100vh - #{$navbar-height + 100px});
+            overflow-y: auto;
+            @include custom-scrollbar;
+        }
+    }
+
+    // Right panel
+    &__right {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-4;
+        min-width: 0;
+    }
+}
+
+// =============================================
+// Question Panel
+// =============================================
+
+.question-panel {
+    &__header {
+        padding: $spacing-5 $spacing-6;
+        border-bottom: 1px solid $color-border-light;
+        @include flex(row, space-between, center, $spacing-3);
+
+        h3 {
+            font-size: $font-size-base;
+            font-weight: $font-weight-semibold;
+            color: $color-text-dark;
+        }
+    }
+
+    &__body {
+        padding: $spacing-5 $spacing-6;
+    }
+
+    &__question {
+        font-size: $font-size-sm;
+        color: $color-text-medium;
+        line-height: 1.8;
+        white-space: pre-wrap;
+    }
+}
+
+// =============================================
+// Sample Data Viewer
+// =============================================
+
+.sample-data {
+    border-top: 1px solid $color-border-light;
+
+    &__header {
+        padding: $spacing-4 $spacing-6;
+        border-bottom: 1px solid $color-border-light;
+        cursor: pointer;
+        @include flex(row, space-between, center, $spacing-2);
+        @include touch-target;
+
+        &:hover {
+            background: $color-border-light;
+        }
+
+        h4 {
+            font-size: $font-size-sm;
+            font-weight: $font-weight-semibold;
+            color: $color-text-dark;
+        }
+
+        .chevron {
+            color: $color-text-light;
+            transition: transform $transition-base;
+
+            &--open {
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    &__tables {
+        padding: $spacing-4 $spacing-6;
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-5;
+    }
+
+    &__table-name {
+        font-size: $font-size-xs;
+        font-weight: $font-weight-semibold;
+        color: $color-primary-dark;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        margin-bottom: $spacing-2;
+        @include flex(row, flex-start, center, $spacing-2);
+
+        &::before {
+            content: '📋';
+            font-size: $font-size-sm;
+        }
+    }
+
+    &__table-wrapper {
+        overflow-x: auto;
+        border: 1px solid $color-border;
+        border-radius: $radius-md;
+        @include custom-scrollbar;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: $font-size-xs;
+
+        th {
+            background: $color-border-light;
+            padding: $spacing-2 $spacing-3;
+            text-align: left;
+            font-weight: $font-weight-semibold;
+            color: $color-text-medium;
+            white-space: nowrap;
+            border-bottom: 1px solid $color-border;
+        }
+
+        td {
+            padding: $spacing-2 $spacing-3;
+            color: $color-text-medium;
+            border-bottom: 1px solid $color-border-light;
+            white-space: nowrap;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: $color-bg;
+        }
+    }
+}
+
+// =============================================
+// Editor Panel
+// =============================================
+
+.editor-panel {
+    @include card;
+    overflow: hidden;
+
+    &__header {
+        padding: $spacing-4 $spacing-5;
+        border-bottom: 1px solid $color-border;
+        @include flex(row, space-between, center, $spacing-3);
+        background: $color-white;
+
+        .editor-title {
+            @include flex(row, flex-start, center, $spacing-2);
+            font-size: $font-size-sm;
+            font-weight: $font-weight-semibold;
+            color: $color-text-dark;
+        }
+    }
+
+    &__editor-wrap {
+        background: $color-editor-bg;
+        min-height: 260px;
+    }
+
+    &__footer {
+        padding: $spacing-4 $spacing-5;
+        @include flex(row, space-between, center, $spacing-3);
+        border-top: 1px solid $color-border;
+        background: $color-white;
+        flex-wrap: wrap;
+        gap: $spacing-3;
+    }
+
+    &__actions {
+        @include flex(row, flex-start, center, $spacing-3);
+        flex-wrap: wrap;
+    }
+
+    &__shortcut {
+        font-size: $font-size-xs;
+        color: $color-text-light;
+    }
+
+    .execute-btn {
+        @include btn-base;
+        background: $color-primary;
+        color: $color-white;
+        padding: $spacing-3 $spacing-6;
+        border-radius: $radius-full;
+        box-shadow: $shadow-primary;
+        @include touch-target;
+
+        &:hover:not(:disabled) {
+            background: $color-primary-dark;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+        }
+
+        &:disabled {
+            opacity: 0.7;
+        }
+
+        &__spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+    }
+}
+
+// =============================================
+// Results Panel
+// =============================================
+
+.results-panel {
+    @include card;
+    overflow: hidden;
+
+    &__header {
+        padding: $spacing-4 $spacing-5;
+        border-bottom: 1px solid $color-border;
+        @include flex(row, space-between, center, $spacing-3);
+
+        .results-title {
+            @include flex(row, flex-start, center, $spacing-2);
+            font-size: $font-size-sm;
+            font-weight: $font-weight-semibold;
+            color: $color-text-dark;
+        }
+    }
+
+    &__meta {
+        font-size: $font-size-xs;
+        color: $color-text-muted;
+        background: $color-border-light;
+        padding: 3px 10px;
+        border-radius: $radius-full;
+    }
+
+    &__body {
+        padding: $spacing-4 $spacing-5;
+        min-height: 80px;
+    }
+
+    &__table-wrap {
+        overflow-x: auto;
+        @include custom-scrollbar;
+        border: 1px solid $color-border;
+        border-radius: $radius-md;
+        max-height: 320px;
+        overflow-y: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: $font-size-sm;
+
+        thead th {
+            position: sticky;
+            top: 0;
+            background: $color-border-light;
+            padding: $spacing-3 $spacing-4;
+            text-align: left;
+            font-weight: $font-weight-semibold;
+            color: $color-text-medium;
+            white-space: nowrap;
+            border-bottom: 1px solid $color-border;
+            z-index: 1;
+        }
+
+        tbody td {
+            padding: $spacing-3 $spacing-4;
+            color: $color-text-medium;
+            border-bottom: 1px solid $color-border-light;
+            font-family: $font-family-mono;
+            font-size: $font-size-xs;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr:hover td {
+            background: $color-bg;
+        }
+    }
+
+    &__placeholder {
+        @include flex(column, center, center, $spacing-2);
+        padding: $spacing-10;
+        color: $color-text-light;
+        font-size: $font-size-sm;
+        text-align: center;
+
+        &-icon {
+            font-size: 2rem;
+            opacity: 0.4;
+        }
+    }
+
+    &__error {
+        @include flex(row, flex-start, flex-start, $spacing-3);
+        background: $color-error-bg;
+        border: 1px solid color.adjust($color-error, $lightness: 30%);
+        border-radius: $radius-md;
+        padding: $spacing-4;
+
+        &-icon {
+            font-size: $font-size-lg;
+            flex-shrink: 0;
+        }
+
+        &-content {
+            flex: 1;
+
+            strong {
+                display: block;
+                color: $color-error;
+                font-size: $font-size-sm;
+                margin-bottom: $spacing-1;
+            }
+
+            p {
+                font-size: $font-size-sm;
+                color: $color-text-muted;
+                font-family: $font-family-mono;
+            }
+        }
+    }
+}
+
+// =============================================
+// Hint Panel
+// =============================================
+
+.hint-panel {
+    @include card;
+    overflow: hidden;
+
+    &__header {
+        padding: $spacing-4 $spacing-5;
+        border-bottom: 1px solid $color-border;
+        @include flex(row, space-between, center, $spacing-3);
+
+        .hint-title {
+            @include flex(row, flex-start, center, $spacing-2);
+            font-size: $font-size-sm;
+            font-weight: $font-weight-semibold;
+            color: $color-text-dark;
+        }
+    }
+
+    &__body {
+        padding: $spacing-5;
+    }
+
+    &__btn {
+        @include btn-base;
+        @include touch-target;
+        background: $color-warning;
+        color: $color-white;
+        width: 100%;
+        justify-content: center;
+        border-radius: $radius-md;
+        font-size: $font-size-sm;
+        box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
+
+        &:hover:not(:disabled) {
+            background: color.adjust($color-warning, $lightness: -8%);
+            transform: translateY(-1px);
+        }
+
+        &:disabled {
+            opacity: 0.7;
+        }
+    }
+
+    &__result {
+        background: $color-hint-bg;
+        border: 1px solid $color-hint-border;
+        border-radius: $radius-md;
+        padding: $spacing-4;
+        font-size: $font-size-sm;
+        color: $color-text-medium;
+        line-height: 1.8;
+        margin-top: $spacing-4;
+
+        &-header {
+            @include flex(row, flex-start, center, $spacing-2);
+            font-weight: $font-weight-semibold;
+            color: color.adjust($color-warning, $lightness: -25%);
+            margin-bottom: $spacing-2;
+            font-size: $font-size-xs;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+    }
+
+    &__disclaimer {
+        margin-top: $spacing-3;
+        font-size: $font-size-xs;
+        color: $color-text-light;
+        text-align: center;
+    }
+}

@@ -1,0 +1,133 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.auth-page {
+    min-height: calc(100vh - #{$navbar-height});
+    @include flex-center;
+    background: $color-bg;
+    padding: $spacing-6 $spacing-4;
+
+    &__card {
+        @include card;
+        width: 100%;
+        max-width: 440px;
+        padding: $spacing-8;
+    }
+
+    &__logo {
+        text-align: center;
+        margin-bottom: $spacing-8;
+
+        &-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, $color-primary, $color-primary-dark);
+            border-radius: $radius-lg;
+            @include flex-center;
+            color: $color-white;
+            font-size: 1.5rem;
+            margin: 0 auto $spacing-4;
+            box-shadow: $shadow-primary;
+        }
+
+        h1 {
+            font-size: $font-size-xl;
+            font-weight: $font-weight-bold;
+            color: $color-text-dark;
+
+            span {
+                color: $color-primary;
+            }
+        }
+
+        p {
+            margin-top: $spacing-2;
+            color: $color-text-muted;
+            font-size: $font-size-sm;
+        }
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-5;
+    }
+
+    &__field {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-2;
+
+        label {
+            font-size: $font-size-sm;
+            font-weight: $font-weight-medium;
+            color: $color-text-medium;
+        }
+
+        input {
+            width: 100%;
+            height: 48px;
+            padding: 0 $spacing-4;
+            border: 1.5px solid $color-border;
+            border-radius: $radius-md;
+            font-size: $font-size-sm;
+            background: $color-white;
+            color: $color-text-dark;
+            outline: none;
+            transition: border-color $transition-fast;
+            @include touch-target;
+
+            &::placeholder {
+                color: $color-text-light;
+            }
+
+            &:focus {
+                border-color: $color-primary;
+                box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+            }
+
+            &.error {
+                border-color: $color-error;
+            }
+        }
+    }
+
+    &__submit {
+        @include btn-base;
+        @include touch-target;
+        background: $color-primary;
+        color: $color-white;
+        width: 100%;
+        justify-content: center;
+        font-size: $font-size-base;
+        padding: $spacing-4;
+        border-radius: $radius-md;
+        box-shadow: $shadow-primary;
+        margin-top: $spacing-2;
+
+        &:hover:not(:disabled) {
+            background: $color-primary-dark;
+            transform: translateY(-1px);
+        }
+
+        &:disabled {
+            opacity: 0.7;
+        }
+    }
+
+    &__footer {
+        text-align: center;
+        margin-top: $spacing-4;
+        font-size: $font-size-sm;
+        color: $color-text-muted;
+
+        a {
+            color: $color-primary;
+            font-weight: $font-weight-medium;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}

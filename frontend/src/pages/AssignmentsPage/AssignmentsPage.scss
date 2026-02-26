@@ -1,0 +1,318 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+@use 'sass:color';
+
+.assignments-page {
+    min-height: calc(100vh - #{$navbar-height});
+    background: $color-bg;
+    padding: $spacing-6 $spacing-4;
+
+    @include respond-to('tablet') {
+        padding: $spacing-8 $spacing-6;
+    }
+
+    @include respond-to('desktop') {
+        padding: $spacing-8;
+    }
+
+    &__header {
+        @include flex(column, flex-start, flex-start, $spacing-4);
+        margin-bottom: $spacing-8;
+
+        @include respond-to('tablet') {
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+
+    &__title-group {
+        h1 {
+            font-size: $font-size-2xl;
+            font-weight: $font-weight-bold;
+            color: $color-text-dark;
+
+            @include respond-to('desktop') {
+                font-size: $font-size-3xl;
+            }
+
+            span {
+                color: $color-primary;
+            }
+        }
+
+        p {
+            margin-top: $spacing-2;
+            color: $color-text-muted;
+            font-size: $font-size-sm;
+        }
+    }
+
+    &__controls {
+        @include flex(column, flex-start, flex-start, $spacing-3);
+        width: 100%;
+
+        @include respond-to('tablet') {
+            flex-direction: row;
+            align-items: center;
+            width: auto;
+            gap: $spacing-4;
+        }
+    }
+
+    // Filter pills - mimicking the reference image tab row
+    &__filters {
+        @include flex(row, flex-start, center, $spacing-2);
+        background: $color-white;
+        border: 1px solid $color-border;
+        border-radius: $radius-full;
+        padding: 4px;
+    }
+
+    &__filter-btn {
+        @include btn-base;
+        border-radius: $radius-full;
+        padding: $spacing-2 $spacing-5;
+        font-size: $font-size-sm;
+        background: none;
+        color: $color-text-muted;
+        border: none;
+        @include touch-target;
+
+        &:hover {
+            background: $color-border-light;
+            color: $color-text-dark;
+        }
+
+        &--active {
+            background: $color-primary !important;
+            color: $color-white !important;
+            box-shadow: $shadow-primary;
+        }
+
+        &--easy.assignments-page__filter-btn--active {
+            background: $color-easy !important;
+        }
+
+        &--medium.assignments-page__filter-btn--active {
+            background: $color-medium !important;
+            box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
+        }
+
+        &--hard.assignments-page__filter-btn--active {
+            background: $color-hard !important;
+            box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3);
+        }
+    }
+
+    &__search {
+        position: relative;
+        width: 100%;
+
+        @include respond-to('tablet') {
+            width: 260px;
+        }
+
+        &-icon {
+            position: absolute;
+            left: $spacing-3;
+            top: 50%;
+            transform: translateY(-50%);
+            color: $color-text-light;
+            font-size: $font-size-base;
+            pointer-events: none;
+        }
+
+        input {
+            width: 100%;
+            height: 44px;
+            padding: 0 $spacing-4 0 $spacing-8;
+            border: 1.5px solid $color-border;
+            border-radius: $radius-full;
+            font-size: $font-size-sm;
+            background: $color-white;
+            color: $color-text-dark;
+            outline: none;
+            transition: border-color $transition-fast;
+
+            &::placeholder {
+                color: $color-text-light;
+            }
+
+            &:focus {
+                border-color: $color-primary;
+            }
+        }
+    }
+
+    // Stats row
+    &__stats {
+        @include flex(row, flex-start, center, $spacing-6);
+        margin-bottom: $spacing-6;
+        flex-wrap: wrap;
+        gap: $spacing-4;
+    }
+
+    &__stat {
+        @include flex(row, flex-start, center, $spacing-2);
+        color: $color-text-muted;
+        font-size: $font-size-sm;
+
+        strong {
+            color: $color-text-dark;
+            font-weight: $font-weight-semibold;
+        }
+    }
+
+    // Cards grid
+    &__grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: $spacing-4;
+
+        @include respond-to('tablet') {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include respond-to('desktop') {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @include respond-to('wide') {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+}
+
+// =============================================
+// Assignment Card
+// =============================================
+
+.assignment-card {
+    @include card;
+    padding: $spacing-6;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+    cursor: pointer;
+    transition: all $transition-base;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, $color-primary, $color-primary-dark);
+        opacity: 0;
+        transition: opacity $transition-base;
+    }
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: $shadow-lg;
+        border-color: $color-primary;
+
+        &::before {
+            opacity: 1;
+        }
+    }
+
+    &--easy::before {
+        background: linear-gradient(90deg, $color-easy, color.adjust($color-easy, $lightness: -10%));
+    }
+
+    &--medium::before {
+        background: linear-gradient(90deg, $color-medium, color.adjust($color-medium, $lightness: -10%));
+    }
+
+    &--hard::before {
+        background: linear-gradient(90deg, $color-hard, color.adjust($color-hard, $lightness: -10%));
+    }
+
+    &__header {
+        @include flex(row, space-between, flex-start, $spacing-3);
+    }
+
+    &__number {
+        width: 40px;
+        height: 40px;
+        border-radius: $radius-md;
+        background: $color-primary-light;
+        @include flex-center;
+        font-size: $font-size-lg;
+        font-weight: $font-weight-bold;
+        color: $color-primary-dark;
+        flex-shrink: 0;
+    }
+
+    &__meta {
+        @include flex(column, flex-start, flex-end, $spacing-1);
+    }
+
+    &__title {
+        font-size: $font-size-base;
+        font-weight: $font-weight-semibold;
+        color: $color-text-dark;
+        line-height: 1.4;
+    }
+
+    &__description {
+        font-size: $font-size-sm;
+        color: $color-text-muted;
+        line-height: 1.6;
+        flex: 1;
+    }
+
+    &__tags {
+        @include flex(row, flex-start, center);
+        flex-wrap: wrap;
+        gap: $spacing-2;
+    }
+
+    &__tag {
+        background: $color-border-light;
+        color: $color-text-muted;
+        font-size: 11px;
+        font-weight: $font-weight-medium;
+        padding: 2px 8px;
+        border-radius: $radius-full;
+    }
+
+    &__footer {
+        @include flex(row, space-between, center, $spacing-3);
+        margin-top: auto;
+        padding-top: $spacing-3;
+        border-top: 1px solid $color-border-light;
+    }
+
+    &__tables-info {
+        font-size: $font-size-xs;
+        color: $color-text-light;
+
+        span {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+    }
+
+    &__attempt-btn {
+        @include btn-base;
+        background: $color-primary;
+        color: $color-white;
+        padding: $spacing-2 $spacing-5;
+        font-size: $font-size-xs;
+        border-radius: $radius-full;
+        box-shadow: $shadow-primary;
+        @include touch-target;
+
+        &:hover {
+            background: $color-primary-dark;
+            transform: translateY(-1px);
+        }
+    }
+}
