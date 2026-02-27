@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
         }
 
         const assignments = await Assignment.find(filter)
-            .select('title description difficulty tags createdAt')
+            .select('title description difficulty tags sampleTables createdAt')
             .sort({ createdAt: -1 });
 
         res.json({ success: true, data: assignments });

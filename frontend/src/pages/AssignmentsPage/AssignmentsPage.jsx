@@ -121,7 +121,6 @@ const AssignmentsPage = () => {
 
                         {/* Search */}
                         <div className="assignments-page__search">
-                            <span className="assignments-page__search-icon" aria-hidden="true">🔍</span>
                             <input
                                 type="search"
                                 placeholder="Search assignments..."
